@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: root
+  become: yes
+  tasks: 
+  - name: install basic packages
+    action: >
+      {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
+    with_items:
+      - vim
+      - tmux
+      - mosh
+      - centos-release-openstack-rocky
+      - python-openstackclient
+      - openstack-selinux
+

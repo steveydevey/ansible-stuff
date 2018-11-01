@@ -1,0 +1,7 @@
+---
+- hosts: all
+  remote_user: root
+  become: yes
+  tasks: 
+  - name: reboot all things
+    shutdown:

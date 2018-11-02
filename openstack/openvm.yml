@@ -1,0 +1,8 @@
+---
+- hosts: openstack
+  become: true
+  tasks:
+    - name: Installs packages
+      yum: pkg={{ item }} state=latest 
+      with_items:
+        - open-vm-tools

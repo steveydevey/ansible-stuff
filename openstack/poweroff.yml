@@ -1,0 +1,9 @@
+---
+- hosts: openstack
+  become: true
+  tasks:
+  - name: poweroff server
+    command: /sbin/shutdown -s +1
+    async: 0
+    poll: 0
+    ignore_errors: true

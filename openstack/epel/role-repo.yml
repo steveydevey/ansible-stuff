@@ -1,0 +1,7 @@
+---
+- hosts: openstack
+  sudo: yes
+  gather_facts: yes #imporant
+  remote_user: root
+  roles: 
+    - epel-repository

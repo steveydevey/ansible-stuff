@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Installs packages
+      dnf: pkg={{ item }} state=latest 
+      with_items:
+        - vim
+        - htop
+        - git
+        - tmux
+        - tree
+        - zsh
+        - wget

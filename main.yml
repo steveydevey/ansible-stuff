@@ -1,0 +1,19 @@
+---
+- name: basic stuff for all machines
+  hosts: kubes
+  serial: "100%"
+  become: true
+  tasks:
+    - name: Installs basic packages
+      dnf: pkg={{ item }} state=latest 
+      with_items:
+              #- vim
+        - htop
+        - tmux
+        - tree
+    - name:  Installs more packages
+      dnf: pkg={{ item }} state=latest 
+      with_items:
+        - git
+        - zsh
+        - wget

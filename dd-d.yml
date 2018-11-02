@@ -1,0 +1,11 @@
+---
+- hosts: dd-d
+  become: true
+  tasks:
+          #- name: libselinux-python install
+          #when: ansible_distribution == 'Fedora'
+          #dnf: 
+          #name: libselinux-python
+          #state: latest
+  - name: set env, pull script and run it
+    shell: DD_API_KEY=e73cfddf429e16e0042de99c990723e3 bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/datadog-agent/master/cmd/agent/install_script.sh)"

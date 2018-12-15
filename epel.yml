@@ -1,9 +1,0 @@
----
-- hosts: all
-  become: yes
-  tasks: 
-  - name: Add repository
-    yum_repository:
-      name: epel
-      description: EPEL YUM repo
-      baseurl: https://mirror.chpc.utah.edu/pub/epel//7Server/x86_64/

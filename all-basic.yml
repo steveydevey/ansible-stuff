@@ -1,14 +1,10 @@
 ---
 - hosts: all
   become: true
+  become_user: root
+  become_method: sudo
   tasks:
     - name: Installs packages
-      dnf: pkg={{ item }} state=latest 
-      with_items:
-        - vim
-        - htop
-        - git
-        - tmux
-        - tree
-        - zsh
-        - wget
+      yum: 
+        pkg: ['vim', 'git', 'tmux', 'tree', 'zsh', 'wget']
+        state: latest

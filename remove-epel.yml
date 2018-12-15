@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  tasks: 
+  # Example removing a repository and cleaning up metadata cache
+  - name: Remove repository (and clean up left-over metadata)
+    yum_repository:
+      name: epel
+      state: absent
+    notify: yum-clean-metadata
+  # Handler showing how to clean yum metadata cache
+  - name: yum-clean-metadata
+    command: yum clean metadata
+    args:
+      warn: no

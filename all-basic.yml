@@ -3,7 +3,19 @@
   become: true
   become_user: root
   become_method: sudo
+  # adding epel
   tasks:
+    - name: Add repository
+      yum_repository:
+        name: epel
+        description: EPEL YUM repo
+        baseurl: https://mirror.chpc.utah.edu/pub/epel//7Server/x86_64/
+    # doing upgrades for all installed packages
+    - name: upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+    # installing our own set of basics
     - name: Installs packages
       yum: 
         pkg: ['vim', 'git', 'tmux', 'tree', 'zsh', 'wget']

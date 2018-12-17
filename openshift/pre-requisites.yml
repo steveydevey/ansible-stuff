@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
+  # adding epel as disabled repo, only to enable it for specific installs
+  tasks:
+    - name: Add repository
+      yum_repository:
+        name: epel
+        description: EPEL YUM repo
+        baseurl: https://mirror.chpc.utah.edu/pub/epel//7Server/x86_64/
+        enabled: yes
+        gpgcheck: no
+    - name: install python keyczar
+      yum:
+              pkg: ['python-keyczar']
+              state: latest
+    # doing upgrades for all installed packages
+    - name: upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+    # installing our own set of basics (from epel too)
+    - name: Installs prerequistie packages
+      yum: 
+        pkg: ['vim', 'git', 'tmux', 'tree', 'zsh', 'wget', 'nfs-utils','net-tools', 'bind-utils', 'yum-utils', 'iptables-services', 'bridge-utils', 'bash-completion', 'kexec-tools', 'sos', 'psacct', 'ansible', 'pyOpenSSL', 'docker-1.13.1']
+        state: latest
+        enablerepo: epel

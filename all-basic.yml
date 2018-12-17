@@ -18,5 +18,5 @@
     # installing our own set of basics
     - name: Installs packages
       yum: 
-        pkg: ['vim', 'git', 'tmux', 'tree', 'zsh', 'wget']
+        pkg: ['vim', 'git', 'tmux', 'tree', 'zsh', 'wget', 'nfs-utils']
         state: latest

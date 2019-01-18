@@ -1,0 +1,47 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
+  # adding epel
+  tasks:
+    - name: Add EPEL repository
+      yum_repository:
+        name: epel
+        description: EPEL YUM repo
+        baseurl: https://mirror.chpc.utah.edu/pub/epel//7Server/x86_64/
+    # doing upgrades for all installed packages
+    - name: Upgrade all packages on the system
+      yum:
+        name: '*'
+        state: latest
+    # installing our own set of basics
+    - name: Install our default packages
+      yum: 
+        pkg: ['vim', 'git', 'tmux', 'tree', 'zsh', 'wget', 'nfs-utils', 'yum-utils', 'device-mapper-persistent-data', 'lvm2', 'python-docker-py']
+       # pkg: ['yum-utils', 'device-mapper-persistent-data', 'lvm2']
+        disable_gpg_check: yes
+        state: latest
+    - name: Add docker repository
+      yum_repository:
+        name: docker
+        description: docker YUM repo
+        baseurl: https://download.docker.com/linux/centos/7/x86_64/stable
+        gpgkey:  https://download.docker.com/linux/centos/gpg
+    # installing our own set of basics
+    - name: Install docker
+      yum: 
+        pkg: ['docker-ce']
+        state: latest
+        disable_gpg_check: yes
+    - name: start and enable docker service
+      service: 
+        name: docker
+        state: started
+        enabled: true
+    - name: nginx container
+      docker_container: 
+        name: nginx
+        image: nginx
+        published_ports: 80:80
+        
